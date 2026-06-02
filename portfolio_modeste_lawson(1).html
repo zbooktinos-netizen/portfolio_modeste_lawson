@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modeste LAWSON — Technicien IT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0c10;
+    --bg2: #111418;
+    --bg3: #181d24;
+    --accent: #00c9a7;
+    --accent2: #0096ff;
+    --text: #e8eaf0;
+    --text2: #8a9ab0;
+    --text3: #4a5568;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(0,201,167,0.3);
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'Sora', sans-serif;
+    --radius: 8px;
+    --radius-lg: 14px;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 15px;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2.5rem;
+    height: 60px;
+    background: rgba(10,12,16,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--text2);
+    text-decoration: none;
+    font-size: 13px;
+    font-family: var(--mono);
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 80px 2.5rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 70% 40%, rgba(0,201,167,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 20% 70%, rgba(0,150,255,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+    align-items: center;
+  }
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 1px;
+    background: var(--accent);
+  }
+  h1 {
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.2rem;
+    letter-spacing: -0.02em;
+  }
+  h1 span { color: var(--accent); }
+  .hero-sub {
+    color: var(--text2);
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    max-width: 480px;
+  }
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.7rem 1.5rem;
+    border-radius: var(--radius);
+    font-family: var(--mono);
+    font-size: 13px;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+    letter-spacing: 0.03em;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #0a0c10;
+    font-weight: 500;
+  }
+  .btn-primary:hover { background: #00e8c1; transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border2);
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* HERO RIGHT — terminal card */
+  .terminal {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .terminal-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 12px 16px;
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-r { background: #ff5f57; }
+  .dot-y { background: #ffbd2e; }
+  .dot-g { background: #28c940; }
+  .terminal-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text3);
+    margin-left: auto; margin-right: auto;
+  }
+  .terminal-body { padding: 1.5rem; }
+  .tline {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.9;
+    color: var(--text2);
+  }
+  .tline .prompt { color: var(--accent); }
+  .tline .cmd { color: var(--text); }
+  .tline .val { color: #82d9ff; }
+  .tline .ok { color: #28c940; }
+  .tline .comment { color: var(--text3); }
+  .tline.indent { padding-left: 1.2rem; }
+
+  /* SECTIONS */
+  section { padding: 5rem 2.5rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 700;
+    margin-bottom: 3rem;
+    letter-spacing: -0.02em;
+  }
+  h2 span { color: var(--accent); }
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent) 0%, transparent 60%);
+    margin-bottom: 3rem;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  .skill-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .skill-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+  .skill-card-icon {
+    width: 40px; height: 40px;
+    border-radius: var(--radius);
+    background: rgba(0,201,167,0.1);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1rem;
+    font-size: 18px;
+  }
+  .skill-card h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    color: var(--text);
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    color: var(--text2);
+  }
+  .tag.accent { background: rgba(0,201,167,0.1); border-color: rgba(0,201,167,0.25); color: var(--accent); }
+
+  /* EXPERIENCES */
+  .exp-list { display: flex; flex-direction: column; gap: 0; }
+  .exp-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 2rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .exp-item:last-child { border-bottom: none; }
+  .exp-meta { }
+  .exp-period {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .exp-company {
+    font-size: 13px;
+    color: var(--text2);
+    font-weight: 400;
+  }
+  .exp-location {
+    font-size: 12px;
+    color: var(--text3);
+    margin-top: 2px;
+  }
+  .exp-content h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+  }
+  .exp-content ul {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .exp-content li {
+    font-size: 13.5px;
+    color: var(--text2);
+    padding-left: 1.2rem;
+    position: relative;
+    line-height: 1.5;
+  }
+  .exp-content li::before {
+    content: '▸';
+    position: absolute; left: 0;
+    color: var(--accent);
+    font-size: 10px;
+    top: 4px;
+  }
+  .exp-kpis {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-top: 1rem;
+  }
+  .kpi {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    background: rgba(0,201,167,0.08);
+    border: 1px solid rgba(0,201,167,0.2);
+    color: var(--accent);
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .stats-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    divide-x: 1px solid var(--border);
+  }
+  .stat-item {
+    padding: 2.5rem;
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: var(--mono);
+    font-size: 2.2rem;
+    font-weight: 500;
+    color: var(--accent);
+    display: block;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: var(--text3);
+    font-weight: 300;
+  }
+
+  /* FORMATION */
+  .formation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .form-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 1.8rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .form-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--accent);
+  }
+  .form-year {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .form-card h3 {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 0.4rem;
+  }
+  .form-card p {
+    font-size: 12px;
+    color: var(--text3);
+  }
+
+  /* CONTACT */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .contact-info h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+  .contact-info p {
+    color: var(--text2);
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+  .contact-links { display: flex; flex-direction: column; gap: 12px; }
+  .contact-link {
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none;
+    color: var(--text2);
+    font-size: 13px;
+    font-family: var(--mono);
+    transition: color 0.2s;
+  }
+  .contact-link:hover { color: var(--accent); }
+  .contact-link-icon {
+    width: 36px; height: 36px;
+    border-radius: var(--radius);
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+  }
+  .availability-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(40,201,64,0.1);
+    border: 1px solid rgba(40,201,64,0.25);
+    color: #28c940;
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+  }
+  .availability-badge::before {
+    content: '';
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #28c940;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .contact-form-side {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+  }
+  .contact-form-side h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    font-family: var(--mono);
+    color: var(--accent);
+  }
+  .field-row { margin-bottom: 1.2rem; }
+  .field-row label {
+    display: block;
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--text3);
+    margin-bottom: 6px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .field-row input, .field-row textarea {
+    width: 100%;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.65rem 1rem;
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 13.5px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .field-row input:focus, .field-row textarea:focus {
+    border-color: var(--border2);
+  }
+  .field-row textarea { resize: vertical; min-height: 100px; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 2.5rem;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text3);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .stats-inner { grid-template-columns: 1fr 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    nav { padding: 0 1.2rem; }
+    section { padding: 3.5rem 1.2rem; }
+    .hero { padding: 80px 1.2rem 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">ML_portfolio.sh</div>
+  <ul class="nav-links">
+    <li><a href="#competences">Skills</a></li>
+    <li><a href="#experience">XP</a></li>
+    <li><a href="#formation">Formation</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="hero-tag">Disponible immédiatement · CDI &amp; Freelance</div>
+      <h1>Modeste<br><span>LAWSON</span></h1>
+      <p class="hero-sub">Technicien Support Informatique N1/N2 — Bac+5 Réseaux, Systèmes &amp; Cybersécurité. Spécialisé Windows Server, Active Directory, Microsoft 365 et infrastructure réseau.</p>
+      <div class="hero-ctas">
+        <a href="mailto:modestielawson@gmail.com" class="btn btn-primary">✉ Me contacter</a>
+        <a href="#experience" class="btn btn-outline">Voir mon parcours →</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="terminal">
+        <div class="terminal-bar">
+          <div class="dot dot-r"></div>
+          <div class="dot dot-y"></div>
+          <div class="dot dot-g"></div>
+          <span class="terminal-title">profil.sh</span>
+        </div>
+        <div class="terminal-body">
+          <div class="tline"><span class="prompt">$</span> <span class="cmd">whoami</span></div>
+          <div class="tline indent"><span class="val">Modeste LAWSON</span> <span class="comment">// IT Support N1/N2</span></div>
+          <div class="tline">&nbsp;</div>
+          <div class="tline"><span class="prompt">$</span> <span class="cmd">locate --skill</span></div>
+          <div class="tline indent"><span class="ok">✓</span> Windows Server 2016/2019/2022</div>
+          <div class="tline indent"><span class="ok">✓</span> Active Directory · DNS · DHCP · GPO</div>
+          <div class="tline indent"><span class="ok">✓</span> Microsoft 365 · Entra ID</div>
+          <div class="tline indent"><span class="ok">✓</span> VMware · Hyper-V · Linux</div>
+          <div class="tline indent"><span class="ok">✓</span> PfSense · Zabbix · GLPI</div>
+          <div class="tline">&nbsp;</div>
+          <div class="tline"><span class="prompt">$</span> <span class="cmd">status --availability</span></div>
+          <div class="tline indent"><span class="ok">DISPONIBLE</span> <span class="comment">// Île-de-France &amp; remote</span></div>
+          <div class="tline">&nbsp;</div>
+          <div class="tline"><span class="prompt">$</span> <span class="cmd">echo $DIPLOME</span></div>
+          <div class="tline indent"><span class="val">Bac+5</span> <span class="comment">// Réseaux, Systèmes &amp; Cybersécurité</span></div>
+          <div class="tline indent"><span class="comment">// Institut F2i — Vincennes</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <span class="stat-num">3+</span>
+      <span class="stat-label">Années d'expérience</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">85%</span>
+      <span class="stat-label">Résolution au 1er contact</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">250+</span>
+      <span class="stat-label">Postes administrés</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">300+</span>
+      <span class="stat-label">Comptes AD créés</span>
+    </div>
+  </div>
+</div>
+
+<!-- COMPETENCES -->
+<section id="competences">
+  <div class="section-inner">
+    <div class="section-label">// 01</div>
+    <h2>Compétences <span>techniques</span></h2>
+    <div class="divider"></div>
+    <div class="skills-grid">
+
+      <div class="skill-card">
+        <div class="skill-card-icon">🖥</div>
+        <h3>Systèmes & Déploiement</h3>
+        <div class="skill-tags">
+          <span class="tag accent">Windows Server 2016/19/22</span>
+          <span class="tag">Active Directory</span>
+          <span class="tag">GPO</span>
+          <span class="tag">DNS / DHCP</span>
+          <span class="tag">RDS</span>
+          <span class="tag">Déploiement postes</span>
+          <span class="tag">Imagerie</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-icon">☁</div>
+        <h3>Cloud & Collaboration</h3>
+        <div class="skill-tags">
+          <span class="tag accent">Microsoft 365</span>
+          <span class="tag accent">Entra ID</span>
+          <span class="tag">SharePoint</span>
+          <span class="tag">Exchange</span>
+          <span class="tag">Teams</span>
+          <span class="tag">SSO / MFA</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-icon">🔌</div>
+        <h3>Réseau & Sécurité</h3>
+        <div class="skill-tags">
+          <span class="tag accent">PfSense</span>
+          <span class="tag">Cisco Firewall</span>
+          <span class="tag">LAN / WAN / VLAN</span>
+          <span class="tag">Snort IDS</span>
+          <span class="tag">Switches / Routeurs</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-icon">⚙</div>
+        <h3>Virtualisation & Linux</h3>
+        <div class="skill-tags">
+          <span class="tag accent">VMware</span>
+          <span class="tag accent">Hyper-V</span>
+          <span class="tag">Ubuntu</span>
+          <span class="tag">Debian</span>
+          <span class="tag">CentOS</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-icon">📊</div>
+        <h3>Supervision & ITSM</h3>
+        <div class="skill-tags">
+          <span class="tag accent">Zabbix</span>
+          <span class="tag accent">GLPI</span>
+          <span class="tag">Ticketing</span>
+          <span class="tag">Reporting</span>
+          <span class="tag">Documentation</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-icon">🎓</div>
+        <h3>Formation & Pédagogie</h3>
+        <div class="skill-tags">
+          <span class="tag">Formateur BTS SIO</span>
+          <span class="tag">TP / Évaluations</span>
+          <span class="tag">Supports pédagogiques</span>
+          <span class="tag">+50 étudiants</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" style="background: var(--bg2);">
+  <div class="section-inner">
+    <div class="section-label">// 02</div>
+    <h2>Expériences <span>professionnelles</span></h2>
+    <div class="divider"></div>
+    <div class="exp-list">
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-period">09/2025 – 03/2026</div>
+          <div class="exp-company">SPIE</div>
+          <div class="exp-location">Montgeron, France</div>
+        </div>
+        <div class="exp-content">
+          <h3>Technicien Support Informatique</h3>
+          <ul>
+            <li>Gestion des environnements Microsoft 365 (messagerie, SharePoint, accès utilisateurs, Entra ID)</li>
+            <li>Prise en charge de 40 à 60 incidents et demandes utilisateurs par semaine, en proximité et à distance</li>
+            <li>Création et administration de plus de 300 comptes utilisateurs via Active Directory</li>
+            <li>Déploiement de postes de travail — 10 configurations par semaine, parc de 250+ machines</li>
+            <li>Participation au renouvellement de plus de 200 équipements informatiques</li>
+          </ul>
+          <div class="exp-kpis">
+            <span class="kpi">85% résolution 1er appel</span>
+            <span class="kpi">−30% interruptions</span>
+            <span class="kpi">250+ postes</span>
+            <span class="kpi">300+ comptes AD</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-period">08/2024 – 01/2025</div>
+          <div class="exp-company">INGESTIS</div>
+          <div class="exp-location">Paris 75005</div>
+        </div>
+        <div class="exp-content">
+          <h3>Formateur BTS SIO</h3>
+          <ul>
+            <li>Enseignement des fondamentaux réseaux et systèmes auprès de 50+ étudiants</li>
+            <li>Conception de TP, évaluations et supports pédagogiques adaptés aux objectifs BTS SIO</li>
+            <li>Amélioration du taux de réussite des étudiants de 20 % grâce au suivi personnalisé</li>
+          </ul>
+          <div class="exp-kpis">
+            <span class="kpi">+20% taux de réussite</span>
+            <span class="kpi">50+ étudiants</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-period">11/2023 – 11/2024</div>
+          <div class="exp-company">Orange</div>
+          <div class="exp-location">Togo</div>
+        </div>
+        <div class="exp-content">
+          <h3>Technicien Support Informatique</h3>
+          <ul>
+            <li>Installation et configuration d'équipements réseau (switches, routeurs) — parc 50+ équipements</li>
+            <li>Administration des services Active Directory, DNS, DHCP et RDS</li>
+            <li>Mise en place d'un IDS basé sur pfSense et Snort</li>
+            <li>Maintenance réseau avec taux de disponibilité supérieur à 98 %</li>
+          </ul>
+          <div class="exp-kpis">
+            <span class="kpi">+98% disponibilité</span>
+            <span class="kpi">pfSense + Snort IDS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-period">03/2022 – 01/2023</div>
+          <div class="exp-company">GLOBAL SUCCESS</div>
+          <div class="exp-location">Togo</div>
+        </div>
+        <div class="exp-content">
+          <h3>Technicien Support Informatique</h3>
+          <ul>
+            <li>Déploiement et administration des services AD, DNS, DHCP et RDS</li>
+            <li>Support sur les problématiques d'authentification (SSO, MFA)</li>
+            <li>Maintenance réseau et support technique utilisateurs — 98%+ disponibilité</li>
+            <li>Rédaction de comptes-rendus et documentation technique</li>
+          </ul>
+          <div class="exp-kpis">
+            <span class="kpi">SSO / MFA</span>
+            <span class="kpi">+98% disponibilité</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FORMATION -->
+<section id="formation">
+  <div class="section-inner">
+    <div class="section-label">// 03</div>
+    <h2>Formation <span>académique</span></h2>
+    <div class="divider"></div>
+    <div class="formation-grid">
+      <div class="form-card">
+        <div class="form-year">Bac+5</div>
+        <h3>Ingénieur Réseaux, Systèmes &amp; Cybersécurité</h3>
+        <p>Institut F2i — Vincennes</p>
+      </div>
+      <div class="form-card">
+        <div class="form-year">Bac+4</div>
+        <h3>Administrateur Systèmes &amp; Réseaux</h3>
+        <p>Institut F2i — Vincennes</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="background: var(--bg2);">
+  <div class="section-inner">
+    <div class="section-label">// 04</div>
+    <h2>Me <span>contacter</span></h2>
+    <div class="divider"></div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="availability-badge">Disponible immédiatement pour un CDI</div>
+        <h3>Prêt à relever un nouveau défi IT</h3>
+        <p>Je suis ouvert aux opportunités CDI en Île-de-France et aux missions freelance (support, administration systèmes, réseau) en présentiel ou remote.</p>
+        <div class="contact-links">
+          <a href="mailto:modestielawson@gmail.com" class="contact-link">
+            <div class="contact-link-icon">✉</div>
+            modestielawson@gmail.com
+          </a>
+          <a href="tel:+33775386168" class="contact-link">
+            <div class="contact-link-icon">📱</div>
+            07 75 38 61 68
+          </a>
+          <a href="#" class="contact-link">
+            <div class="contact-link-icon">📍</div>
+            Champs-sur-Marne (77) · Île-de-France
+          </a>
+          <a href="#" class="contact-link">
+            <div class="contact-link-icon">🚗</div>
+            Permis B · Mobile France
+          </a>
+        </div>
+      </div>
+      <div class="contact-form-side">
+        <h3>// envoyer_message.sh</h3>
+        <div class="field-row">
+          <label>Nom / Entreprise</label>
+          <input type="text" placeholder="Ex: Acme Corp">
+        </div>
+        <div class="field-row">
+          <label>Email</label>
+          <input type="email" placeholder="votre@email.com">
+        </div>
+        <div class="field-row">
+          <label>Message</label>
+          <textarea placeholder="Bonjour Modeste, nous avons une opportunité..."></textarea>
+        </div>
+        <button class="btn btn-primary" style="width:100%; justify-content:center;">Envoyer le message</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Modeste LAWSON · Technicien Support Informatique · Bac+5 Réseaux, Systèmes &amp; Cybersécurité</p>
+</footer>
+
+</body>
+</html>
