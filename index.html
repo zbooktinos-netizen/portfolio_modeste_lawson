@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Modeste LAWSON — Technicien IT</title>
+<title>Modeste LAWSON — Support IT, Systèmes, Réseaux &amp; Cybersécurité</title>
+<meta name="description" content="Portfolio de Modeste LAWSON, technicien support IT et administrateur systèmes et réseaux, Bac+5 Réseaux, Systèmes &amp; Cybersécurité. Windows Server, Active Directory, Microsoft 365, SIEM ELK, pentest. Île-de-France.">
+<meta property="og:title" content="Modeste LAWSON — Support IT, Systèmes, Réseaux &amp; Cybersécurité">
+<meta property="og:description" content="Bac+5 Réseaux, Systèmes &amp; Cybersécurité. Disponible pour un CDI en Île-de-France.">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -319,7 +323,6 @@
     max-width: 1100px; margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    divide-x: 1px solid var(--border);
   }
   .stat-item {
     padding: 2.5rem;
@@ -479,6 +482,48 @@
   }
   .field-row textarea { resize: vertical; min-height: 100px; }
 
+  /* PROJETS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  .project-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.6rem;
+    display: flex; flex-direction: column;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .project-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+  .project-type {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+  .project-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 0.7rem; }
+  .project-card p { font-size: 13.5px; color: var(--text2); line-height: 1.6; margin-bottom: 1rem; }
+  .project-card ul { list-style: none; display: flex; flex-direction: column; gap: 5px; margin-bottom: 1.2rem; }
+  .project-card li { font-size: 13px; color: var(--text2); padding-left: 1.1rem; position: relative; }
+  .project-card li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); font-size: 10px; top: 3px; }
+  .project-card .skill-tags { margin-bottom: 1.2rem; }
+  .project-link {
+    margin-top: auto;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .project-link:hover { text-decoration: underline; }
+  .contact-link.static { cursor: default; }
+  .contact-link.static:hover { color: var(--text2); }
+  .form-error { font-size: 12px; color: #ff6b6b; margin-top: -0.6rem; margin-bottom: 1rem; min-height: 1em; font-family: var(--mono); }
+  .form-note { font-size: 11px; color: var(--text3); margin-top: 0.8rem; text-align: center; }
+
   /* FOOTER */
   footer {
     border-top: 1px solid var(--border);
@@ -496,6 +541,11 @@
     .stats-inner { grid-template-columns: 1fr 1fr; }
     .contact-grid { grid-template-columns: 1fr; }
     nav { padding: 0 1.2rem; }
+    .nav-logo { display: none; }
+    .nav-links { gap: 1.1rem; width: 100%; justify-content: space-between; }
+    .nav-links a { font-size: 12px; }
+    .stat-item:nth-child(2) { border-right: none; }
+    .stat-item { padding: 1.8rem 1rem; }
     section { padding: 3.5rem 1.2rem; }
     .hero { padding: 80px 1.2rem 3rem; }
   }
@@ -509,6 +559,7 @@
   <ul class="nav-links">
     <li><a href="#competences">Skills</a></li>
     <li><a href="#experience">XP</a></li>
+    <li><a href="#projets">Projets</a></li>
     <li><a href="#formation">Formation</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -520,10 +571,11 @@
     <div class="hero-left">
       <div class="hero-tag">Disponible immédiatement · CDI &amp; Freelance</div>
       <h1>Modeste<br><span>LAWSON</span></h1>
-      <p class="hero-sub">Technicien Support Informatique N1/N2 — Bac+5 Réseaux, Systèmes &amp; Cybersécurité. Spécialisé Windows Server, Active Directory, Microsoft 365 et infrastructure réseau.</p>
+      <p class="hero-sub">Technicien Support IT N1/N2 et Administrateur Systèmes &amp; Réseaux — Bac+5 Réseaux, Systèmes &amp; Cybersécurité. Windows Server, Active Directory, Microsoft 365, infrastructure réseau, et projets en cybersécurité (SIEM, pentest).</p>
       <div class="hero-ctas">
         <a href="mailto:modestielawson@gmail.com" class="btn btn-primary">✉ Me contacter</a>
-        <a href="#experience" class="btn btn-outline">Voir mon parcours →</a>
+        <a href="#projets" class="btn btn-outline">Voir mes projets →</a>
+        <a href="https://github.com/zbooktinos-netizen" target="_blank" rel="noopener" class="btn btn-outline">GitHub ↗</a>
       </div>
     </div>
     <div class="hero-right">
@@ -721,7 +773,7 @@
         <div class="exp-meta">
           <div class="exp-period">11/2023 – 11/2024</div>
           <div class="exp-company">Orange</div>
-          <div class="exp-location">Saint-Denis, France</div>
+          <div class="exp-location">Togo</div>
         </div>
         <div class="exp-content">
           <h3>Technicien Support Informatique</h3>
@@ -742,7 +794,7 @@
         <div class="exp-meta">
           <div class="exp-period">03/2022 – 01/2023</div>
           <div class="exp-company">GLOBAL SUCCESS</div>
-          <div class="exp-location">Lyon, France</div>
+          <div class="exp-location">Togo</div>
         </div>
         <div class="exp-content">
           <h3>Technicien Support Informatique</h3>
@@ -763,10 +815,77 @@
   </div>
 </section>
 
-<!-- FORMATION -->
-<section id="formation">
+<!-- PROJETS -->
+<section id="projets">
   <div class="section-inner">
     <div class="section-label">// 03</div>
+    <h2>Projets <span>cybersécurité &amp; infra</span></h2>
+    <div class="divider"></div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-type">SIEM · Blue team</div>
+        <h3>SIEM avec la stack ELK</h3>
+        <p>Conception et déploiement d'un SIEM qui centralise, analyse et visualise les logs systèmes, applicatifs et réseau pour détecter les comportements suspects.</p>
+        <ul>
+          <li>Collecte avec Filebeat, parsing et enrichissement avec Logstash</li>
+          <li>Indexation dans Elasticsearch, dashboards Kibana</li>
+          <li>Détection de brute force SSH et analyse des logs en temps réel</li>
+        </ul>
+        <div class="skill-tags">
+          <span class="tag accent">Elasticsearch</span>
+          <span class="tag accent">Logstash</span>
+          <span class="tag accent">Kibana</span>
+          <span class="tag">Filebeat</span>
+        </div>
+        <a class="project-link" href="https://github.com/zbooktinos-netizen/siem-elk-project" target="_blank" rel="noopener">Voir sur GitHub ↗</a>
+      </div>
+
+      <div class="project-card">
+        <div class="project-type">Pentest · Red team</div>
+        <h3>Test d'intrusion en boîte noire</h3>
+        <p>Audit d'une machine cible en quatre phases : reconnaissance, énumération, identification des vulnérabilités et validation des vecteurs d'attaque.</p>
+        <ul>
+          <li>Cartographie des ports et services (Apache, SSH sur port non standard, API Wazuh)</li>
+          <li>Évaluation des risques par service, de faible à élevé</li>
+          <li>Plan de remédiation : pare-feu, SSH par clé + Fail2Ban, durcissement Apache</li>
+        </ul>
+        <div class="skill-tags">
+          <span class="tag accent">Kali Linux</span>
+          <span class="tag accent">Nmap</span>
+          <span class="tag">Gobuster</span>
+          <span class="tag">Hydra</span>
+        </div>
+        <a class="project-link" href="https://github.com/zbooktinos-netizen/-Scan-de-vuln-rabilit-s-avec-Kali-Linux" target="_blank" rel="noopener">Voir sur GitHub ↗</a>
+      </div>
+
+      <div class="project-card">
+        <div class="project-type">Labs · Admin &amp; DevOps</div>
+        <h3>Labs systèmes et supervision</h3>
+        <p>Mise en pratique des outils d'exploitation et de sécurisation d'une infrastructure Linux.</p>
+        <ul>
+          <li>Installation et configuration de Zabbix</li>
+          <li>Déploiement de GLPI</li>
+          <li>Sécurisation SSH (authentification par clé + Fail2Ban)</li>
+          <li>Environnement Docker avec Vagrant</li>
+        </ul>
+        <div class="skill-tags">
+          <span class="tag accent">Zabbix</span>
+          <span class="tag accent">GLPI</span>
+          <span class="tag">Docker</span>
+          <span class="tag">Vagrant</span>
+        </div>
+        <a class="project-link" href="https://github.com/zbooktinos-netizen/PROJET-info" target="_blank" rel="noopener">Voir sur GitHub ↗</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FORMATION -->
+<section id="formation" style="background: var(--bg2);">
+  <div class="section-inner">
+    <div class="section-label">// 04</div>
     <h2>Formation <span>académique</span></h2>
     <div class="divider"></div>
     <div class="formation-grid">
@@ -785,9 +904,9 @@
 </section>
 
 <!-- CONTACT -->
-<section id="contact" style="background: var(--bg2);">
+<section id="contact">
   <div class="section-inner">
-    <div class="section-label">// 04</div>
+    <div class="section-label">// 05</div>
     <h2>Me <span>contacter</span></h2>
     <div class="divider"></div>
     <div class="contact-grid">
@@ -804,39 +923,64 @@
             <div class="contact-link-icon">📱</div>
             07 75 38 61 68
           </a>
-          <a href="#" class="contact-link">
+          <a href="https://github.com/zbooktinos-netizen" target="_blank" rel="noopener" class="contact-link">
+            <div class="contact-link-icon">⌥</div>
+            github.com/zbooktinos-netizen
+          </a>
+          <div class="contact-link static">
             <div class="contact-link-icon">📍</div>
             Champs-sur-Marne (77) · Île-de-France
-          </a>
-          <a href="#" class="contact-link">
+          </div>
+          <div class="contact-link static">
             <div class="contact-link-icon">🚗</div>
             Permis B · Mobile France
-          </a>
+          </div>
         </div>
       </div>
-      <div class="contact-form-side">
+      <form class="contact-form-side" id="contact-form" novalidate>
         <h3>// envoyer_message.sh</h3>
         <div class="field-row">
-          <label>Nom / Entreprise</label>
-          <input type="text" placeholder="Ex: Acme Corp">
+          <label for="cf-name">Nom / Entreprise</label>
+          <input id="cf-name" type="text" placeholder="Ex: Acme Corp">
         </div>
         <div class="field-row">
-          <label>Email</label>
-          <input type="email" placeholder="votre@email.com">
+          <label for="cf-email">Email</label>
+          <input id="cf-email" type="email" placeholder="votre@email.com">
         </div>
         <div class="field-row">
-          <label>Message</label>
-          <textarea placeholder="Bonjour Modeste, nous avons une opportunité..."></textarea>
+          <label for="cf-msg">Message</label>
+          <textarea id="cf-msg" placeholder="Bonjour Modeste, nous avons une opportunité..."></textarea>
         </div>
-        <button class="btn btn-primary" style="width:100%; justify-content:center;">Envoyer le message</button>
-      </div>
+        <div class="form-error" id="cf-error" role="alert"></div>
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Envoyer le message</button>
+        <p class="form-note">Le message s'ouvre dans votre messagerie, prêt à être envoyé.</p>
+      </form>
     </div>
   </div>
 </section>
 
 <footer>
-  <p>© 2026 Modeste LAWSON · Technicien Support Informatique · Bac+5 Réseaux, Systèmes &amp; Cybersécurité</p>
+  <p>© 2026 Modeste LAWSON · Support IT · Systèmes &amp; Réseaux · Cybersécurité · Bac+5</p>
 </footer>
+
+<script>
+  document.getElementById('contact-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = document.getElementById('cf-name').value.trim();
+    var email = document.getElementById('cf-email').value.trim();
+    var msg = document.getElementById('cf-msg').value.trim();
+    var err = document.getElementById('cf-error');
+    if (!name || !email || !msg) { err.textContent = 'Remplissez tous les champs.'; return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Adresse e-mail invalide.'; return; }
+    err.textContent = '';
+    var subject = 'Contact portfolio — ' + name;
+    var body = msg + '\n\n— ' + name + ' (' + email + ')';
+    window.location.href = 'mailto:modestielawson@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  });
+  ['cf-name', 'cf-email', 'cf-msg'].forEach(function (id) {
+    document.getElementById(id).addEventListener('input', function () { document.getElementById('cf-error').textContent = ''; });
+  });
+</script>
 
 </body>
 </html>
